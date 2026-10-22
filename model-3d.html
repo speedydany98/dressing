@@ -248,11 +248,11 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000),k=Math.min(1,dt*7);la
   else if(q.kind==='bara'||q.kind==='lift'||q.kind==='lift_fix'){vis=st.vis.bars;col=hex(MATC.metal);mode=1;edges=false;
    if(q.kind==='lift'){const th=-(10+st.lift*90)*Math.PI/180,py=q.pivot[0],pz=q.pivot[1];mm=M.mul(M.trans(0,py,pz),M.mul(M.rotx(th),M.trans(0,-py,-pz)))}}
   else if(q.mat==='pfl'){vis=st.vis.pfl;col=hex(MATC.pfl);a=st.palA}
-  else if(q.kind==='usa'){vis=st.vis.doors;const f=st.fr[q.body];col=hex(f.c);mode={mat:0,gloss:1,mirror:2,glass:3}[f.f];a=st.glassA;
+  else if(q.kind==='usa'){vis=st.vis.doors;const f=st.fr[q.body];col=hex(f.c);mode={mat:0,gloss:1,mirror:2,glass:3}[f.f];a=(f.f==='glass'?st.glassA:1);
    const ang=st.openD[q.id]*st.maxAng*Math.PI/180*(q.side==='L'?1:-1);const px=q.pivot[0],py=q.pivot[1];
    mm=M.mul(M.trans(px,py,0),M.mul(M.rotz(ang),M.trans(-px,-py,0)))}
   else if(q.mat==='dfront'&&st.drMat==='pal'){col=palc;a=st.palA;mm=M.trans(0,st.dr[q.draw]*DR_TRAVEL,0)}
-  else if(q.mat==='dfront'){const f=st.fr.S;col=hex(f.c);mode={mat:0,gloss:1,mirror:2,glass:3}[f.f];a=st.glassA;mm=M.trans(0,st.dr[q.draw]*DR_TRAVEL,0)}
+  else if(q.mat==='dfront'){const f=st.fr.S;col=hex(f.c);mode={mat:0,gloss:1,mirror:2,glass:3}[f.f];a=(f.f==='glass'?st.glassA:1);mm=M.trans(0,st.dr[q.draw]*DR_TRAVEL,0)}
   else if(q.kind==='sertar'){col=palc;mm=M.trans(0,st.dr[q.draw]*DR_TRAVEL,0)}
   else{col=palc;a=st.palA}
   if(st.iso&&q.kind!=='camera'&&q.kind!=='teava'){const b=o.bb,cx=(b[0]+b[3])/2;if(cx<st.iso[0]||cx>st.iso[1])vis=false}
