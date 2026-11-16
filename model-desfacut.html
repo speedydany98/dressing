@@ -1,17 +1,28 @@
 <!DOCTYPE html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dressing Casa Narcisa v22 · model 3D desfăcut</title>
-<style>body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f4f5f7;color:#1d2329}
-header{padding:10px 14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:14px;background:#fff;border-bottom:1px solid #d9dde3}
-header b{font-size:15px}label{display:flex;align-items:center;gap:8px}#ex{width:240px}
-button,a.b{font-size:13px;padding:5px 11px;border:1px solid #b9c0ca;border-radius:7px;background:#fff;color:#1d2329;cursor:pointer;text-decoration:none}
-#v3{width:100vw;height:calc(100vh - 118px);touch-action:none}
-#lg{padding:8px 14px;display:flex;flex-wrap:wrap;gap:5px 16px;font-size:12.5px;background:#fff;border-top:1px solid #d9dde3}
-#lg i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px}
-#tip{position:fixed;left:14px;bottom:52px;background:#1d2329;color:#fff;font-size:13px;padding:5px 9px;border-radius:6px;display:none;pointer-events:none}</style></head><body>
-<header><b>Dressing v22 · desfăcut</b><label>Desfăcut <input type="range" id="ex" min="0" max="100" value="60"></label>
-<label><input type="checkbox" id="pf"> spate PFL</label><label><input type="checkbox" id="pl" checked> plinte și traverse</label>
-<button id="rs">Vedere din față</button><a class="b" href="model-3d.html">Modelul 3D complet</a><span style="color:#667">rotire: trage · zoom: rotiță · atinge o placă pentru nume și cote</span></header>
-<div id="v3"></div><div id="tip"></div><div id="lg"><span><i style="background:#1D9E75"></i>lateral jos</span><span><i style="background:#7F77DD"></i>lateral sus / capac</span><span><i style="background:#EF9F27"></i>placă de rost</span><span><i style="background:#378ADD"></i>fund</span><span><i style="background:#D4537E"></i>plafon</span><span><i style="background:#639922"></i>poliță fixă</span><span><i style="background:#B4B2A9"></i>mobil, bloc sertare</span><span><i style="background:#8a6d3b"></i>plintă, traverse sub fund</span></div>
+<style>html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f4f5f7;color:#1d2329}
+#wrap{display:flex;height:100vh}
+#v3{flex:1;min-width:0;height:100%;touch-action:none;position:relative}
+#side{width:200px;flex:none;background:#fff;border-left:1px solid #d9dde3;padding:12px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;overflow-y:auto;font-size:13px}
+#side b{font-size:14px}
+.sl{display:flex;align-items:stretch;gap:10px;flex:1;min-height:180px}
+#ex{writing-mode:vertical-lr;direction:rtl;-webkit-appearance:slider-vertical;appearance:slider-vertical;width:34px;height:100%;min-height:180px;margin:0;cursor:pointer}
+.slab{display:flex;flex-direction:column;justify-content:space-between;color:#5d6872;font-size:12px}
+.slab span:nth-child(2){font-weight:600;color:#1d2329}
+label{display:flex;align-items:center;gap:7px}
+button,a.b{font-size:13px;padding:6px 10px;border:1px solid #b9c0ca;border-radius:7px;background:#fff;color:#1d2329;cursor:pointer;text-decoration:none;text-align:center}
+#lg{display:flex;flex-direction:column;gap:4px;font-size:12px;border-top:1px solid #e3e6ea;padding-top:8px}
+#lg i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.hint{color:#667;font-size:11.5px;line-height:1.35}
+#tip{position:absolute;left:12px;bottom:12px;background:#1d2329;color:#fff;font-size:13px;padding:5px 9px;border-radius:6px;display:none;pointer-events:none;max-width:80%}
+@media (max-width:560px){#side{width:150px;padding:10px 8px}#lg{font-size:11px}}</style></head><body>
+<div id="wrap"><div id="v3"><div id="tip"></div></div>
+<div id="side"><b>Dressing v22 · desfăcut</b>
+<div class="sl"><input type="range" id="ex" min="0" max="100" value="60" aria-label="Cât de desfăcut"><div class="slab"><span>desfăcut</span><span id="exv">60%</span><span>asamblat</span></div></div>
+<label><input type="checkbox" id="pf"> spate PFL</label><label><input type="checkbox" id="pl" checked> plinte, traverse</label>
+<button id="rs">Vedere din față</button><a class="b" href="model-3d.html">Modelul 3D complet</a>
+<div class="hint">rotire: trage · zoom: rotiță / ciupit · atinge o placă pentru nume și cote</div>
+<div id="lg"><span><i style="background:#1D9E75"></i>lateral jos</span><span><i style="background:#7F77DD"></i>lateral sus / capac</span><span><i style="background:#EF9F27"></i>placă de rost</span><span><i style="background:#378ADD"></i>fund</span><span><i style="background:#D4537E"></i>plafon</span><span><i style="background:#639922"></i>poliță fixă</span><span><i style="background:#B4B2A9"></i>mobil, bloc sertare</span><span><i style="background:#8a6d3b"></i>plintă, traverse sub fund</span></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
@@ -32,11 +43,11 @@ var b=[(d[0]+d[3])/2,(d[2]+d[5])/2,(d[1]+d[4])/2],m=d[7];
 return {me:me,b:b,m:m,t:d[6],v:[b[0]-mc[m][0],b[1]-mc[m][1],b[2]-mc[m][2]]};});
 var ctr=new THREE.OrbitControls(cam,rn.domElement);ctr.enableDamping=true;
 function front(){ctr.target.set(1545,1300,0);cam.position.set(4300,2700,9800);ctr.update();}
-function lay(){var e=document.getElementById('ex').value/100,sp=document.getElementById('pf').checked,pl=document.getElementById('pl').checked;
+function lay(){document.getElementById('exv').textContent=document.getElementById('ex').value+'%';var e=document.getElementById('ex').value/100,sp=document.getElementById('pf').checked,pl=document.getElementById('pl').checked;
 P.forEach(function(p){var body=Math.floor(p.m/2),up=p.m%2;
 p.me.position.set(p.b[0]+e*((body-1.5)*520+0.55*p.v[0]),p.b[1]+e*(up*420+0.45*p.v[1]),p.b[2]+e*(0.5*p.v[2]-(p.t===7?260:0)+(p.t===8&&p.b[2]>400?220:0)));
 p.me.visible=(p.t!==7||sp)&&(p.t!==8||pl);});}
-['ex','pf','pl'].forEach(function(i){document.getElementById(i).addEventListener('input',lay);});document.getElementById('rs').addEventListener('click',front);
+['ex','pf','pl'].forEach(function(i){document.getElementById(i).addEventListener('input',lay);document.getElementById(i).addEventListener('change',lay);});document.getElementById('rs').addEventListener('click',front);
 var rc=new THREE.Raycaster(),tip=document.getElementById('tip'),dn=null;
 rn.domElement.addEventListener('pointerdown',function(ev){dn=[ev.clientX,ev.clientY];});
 rn.domElement.addEventListener('pointerup',function(ev){if(!dn||Math.abs(ev.clientX-dn[0])+Math.abs(ev.clientY-dn[1])>6)return;
