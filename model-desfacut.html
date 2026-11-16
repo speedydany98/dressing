@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dressing Casa Narcisa v22 · model 3D desfăcut</title>
+<style>body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f4f5f7;color:#1d2329}
+header{padding:10px 14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:14px;background:#fff;border-bottom:1px solid #d9dde3}
+header b{font-size:15px}label{display:flex;align-items:center;gap:8px}#ex{width:240px}
+button,a.b{font-size:13px;padding:5px 11px;border:1px solid #b9c0ca;border-radius:7px;background:#fff;color:#1d2329;cursor:pointer;text-decoration:none}
+#v3{width:100vw;height:calc(100vh - 118px);touch-action:none}
+#lg{padding:8px 14px;display:flex;flex-wrap:wrap;gap:5px 16px;font-size:12.5px;background:#fff;border-top:1px solid #d9dde3}
+#lg i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px}
+#tip{position:fixed;left:14px;bottom:52px;background:#1d2329;color:#fff;font-size:13px;padding:5px 9px;border-radius:6px;display:none;pointer-events:none}</style></head><body>
+<header><b>Dressing v22 · desfăcut</b><label>Desfăcut <input type="range" id="ex" min="0" max="100" value="60"></label>
+<label><input type="checkbox" id="pf"> spate PFL</label><label><input type="checkbox" id="pl" checked> plinte și traverse</label>
+<button id="rs">Vedere din față</button><a class="b" href="model-3d.html">Modelul 3D complet</a><span style="color:#667">rotire: trage · zoom: rotiță · atinge o placă pentru nume și cote</span></header>
+<div id="v3"></div><div id="tip"></div><div id="lg"><span><i style="background:#1D9E75"></i>lateral jos</span><span><i style="background:#7F77DD"></i>lateral sus / capac</span><span><i style="background:#EF9F27"></i>placă de rost</span><span><i style="background:#378ADD"></i>fund</span><span><i style="background:#D4537E"></i>plafon</span><span><i style="background:#639922"></i>poliță fixă</span><span><i style="background:#B4B2A9"></i>mobil, bloc sertare</span><span><i style="background:#8a6d3b"></i>plintă, traverse sub fund</span></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+var D=[[6,5,0,24,535,2162,0,0],[6,5,2180,24,535,2430,1,1],[1014,5,0,1032,535,2162,0,0],[1014,5,2180,1032,535,2430,1,1],[24,5,80,1014,535,98,3,0],[24,5,2412,1014,535,2430,4,1],[6,5,2162,1032,535,2180,2,0],[7,2,81,1031,5,2171,7,0],[7,2,2171,1031,5,2429,7,1],[24,5,450,1014,535,468,5,0],[24,5,805,1014,535,823,5,0],[24,5,1160,1014,535,1178,5,0],[24,5,1505,1014,535,1523,5,0],[24,5,1816,1014,535,1834,5,0],[1032,5,0,1050,535,2162,0,2],[1032,5,2180,1050,535,2430,1,3],[1780,-485,0,1798,535,1826,0,4],[1780,-485,1844,1798,535,2430,1,5],[1050,5,80,1780,535,98,3,2],[1050,5,2412,1780,535,2430,4,3],[1032,5,2162,1780,535,2180,2,2],[1033,2,81,1779,5,2171,7,2],[1033,2,2171,1779,5,2429,7,3],[1050,5,98,1068,455,1098,6,2],[1762,5,98,1780,455,1098,6,2],[1050,5,1098,1780,455,1116,6,2],[2040,-485,0,2058,535,1826,0,4],[2040,-485,1844,2058,535,2430,1,5],[1798,-485,80,2040,535,98,3,4],[1780,-485,1826,2058,535,1844,2,4],[1798,-485,2162,2040,535,2180,5,5],[1798,-485,2412,2040,535,2430,4,5],[1781,-488,81,2057,-485,1835,7,4],[1781,-488,1835,2057,-485,2429,7,5],[1798,-485,1586,2040,525,1604,6,4],[2058,-485,0,2076,535,1098,0,6],[2058,-485,1116,2076,535,2430,1,7],[3066,-485,0,3084,535,1098,0,6],[3066,-485,1116,3084,535,2430,1,7],[2076,-485,80,3066,535,98,3,6],[2058,-485,1098,3084,535,1116,2,6],[2076,-485,2162,3066,535,2180,5,7],[2076,-485,2412,3066,535,2430,4,7],[2059,-488,81,3083,-485,1107,7,6],[2059,-488,1107,3083,-485,2429,7,7],[2076,-485,1364,3066,-65,1382,6,7],[2076,-485,1630,3066,-65,1648,6,7],[2076,-485,1896,3066,-65,1914,6,7],[2076,-485,941,3066,535,959,5,6],[24,517,0,1014,535,80,8,0],[1050,517,0,1780,535,80,8,2],[1798,517,0,2040,535,80,8,4],[2076,517,0,3066,535,80,8,6],[24,261,10,1014,279,80,8,0],[1050,261,10,1780,279,80,8,2],[1798,-154,10,2040,-136,80,8,4],[1798,186,10,2040,204,80,8,4],[2076,-154,10,3066,-136,80,8,6],[2076,186,10,3066,204,80,8,6]],N=["C1 lateral stanga (corp) · 2162 × 530 × 18","C1 lateral stanga CAPAC · 530 × 250 × 18","C1 lateral dreapta (corp) · 2162 × 530 × 18","C1 lateral dreapta CAPAC · 530 × 250 × 18","C1 fund · 990 × 530 × 18","C1 plafon (in capac) · 990 × 530 × 18","C1 placa de rost sus (latime exterioara) · 1026 × 530 × 18","C1 spate PFL jos · 2090 × 1024 × 3","C1 spate PFL sus · 1024 × 258 × 3","C1 raft fix 1 · 990 × 530 × 18","C1 raft fix 2 · 990 × 530 × 18","C1 raft fix 3 · 990 × 530 × 18","C1 raft fix 4 · 990 × 530 × 18","C1 raft fix 5 · 990 × 530 × 18","C2a lateral stanga (corp) · 2162 × 530 × 18","C2a lateral stanga CAPAC · 530 × 250 × 18","C2 panou comun 2a/2b JOS · 1826 × 1020 × 18","C2 panou comun 2a/2b SUS · 1020 × 586 × 18","C2a fund · 730 × 530 × 18","C2a plafon (in capac) · 730 × 530 × 18","C2a placa de rost sus A · 748 × 530 × 18","C2a spate PFL jos · 2090 × 746 × 3","C2a spate PFL sus · 746 × 258 × 3","Subcorp lateral stanga · 1000 × 450 × 18","Subcorp lateral dreapta · 1000 × 450 × 18","Subcorp capac (polita) · 730 × 450 × 18","C2b lateral dreapta JOS · 1826 × 1020 × 18","C2b lateral dreapta SUS · 1020 × 586 × 18","C2b fund · 1020 × 242 × 18","C2b placa de rost (peste panoul comun si lateral) · 1020 × 278 × 18","C2b polita fixa sus · 1020 × 242 × 18","C2b plafon · 1020 × 242 × 18","C2b spate PFL jos · 1754 × 276 × 3","C2b spate PFL sus · 594 × 276 × 3","C2b raft mobil 1 (pe bolturi, se pune cand vrei) · 1010 × 242 × 18","C3 lateral stanga JOS · 1098 × 1020 × 18","C3 lateral stanga SUS · 1314 × 1020 × 18","C3 lateral dreapta JOS · 1098 × 1020 × 18","C3 lateral dreapta SUS · 1314 × 1020 × 18","C3 fund · 1020 × 990 × 18","C3 placa de rost (latime exterioara) · 1026 × 1020 × 18","C3 polita fixa sus · 1020 × 990 × 18","C3 plafon · 1020 × 990 × 18","C3 spate PFL jos · 1026 × 1024 × 3","C3 spate PFL sus · 1322 × 1024 × 3","C3 raft spate 1 (rar folosite) · 990 × 420 × 18","C3 raft spate 2 (rar folosite) · 990 × 420 × 18","C3 raft spate 3 (rar folosite) · 990 × 420 × 18","C3 raft fix deasupra imprimantei · 1020 × 990 × 18","Plinta interioara C1 · 990 × 80 × 18","Plinta interioara C2a · 730 × 80 × 18","Plinta interioara C2b · 242 × 80 × 18","Plinta interioara C3 · 990 × 80 × 18","C1 traversa sub fund 1 · 990 × 70 × 18","C2a traversa sub fund 1 · 730 × 70 × 18","C2b traversa sub fund 1 · 242 × 70 × 18","C2b traversa sub fund 2 · 242 × 70 × 18","C3 traversa sub fund 1 · 990 × 70 × 18","C3 traversa sub fund 2 · 990 × 70 × 18"];
+var C=[0x1D9E75,0x7F77DD,0xEF9F27,0x378ADD,0xD4537E,0x639922,0xB4B2A9,0xD3D1C7,0x8a6d3b];
+var el=document.getElementById('v3'),W=el.clientWidth,H=el.clientHeight;
+var sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,W/H,50,60000);
+var rn=new THREE.WebGLRenderer({antialias:true,alpha:true});rn.setPixelRatio(Math.min(window.devicePixelRatio,2));rn.setSize(W,H);el.appendChild(rn.domElement);
+sc.add(new THREE.AmbientLight(0xffffff,0.72));var dl=new THREE.DirectionalLight(0xffffff,0.55);dl.position.set(2500,4000,6000);sc.add(dl);
+var mc=[],mn=[];for(var m=0;m<8;m++){mc.push([0,0,0]);mn.push(0);}
+D.forEach(function(d){var m=d[7];mc[m][0]+=(d[0]+d[3])/2;mc[m][1]+=(d[2]+d[5])/2;mc[m][2]+=(d[1]+d[4])/2;mn[m]++;});
+mc.forEach(function(c,m){if(mn[m]){c[0]/=mn[m];c[1]/=mn[m];c[2]/=mn[m];}});
+var em=new THREE.LineBasicMaterial({color:0x444441}),meshes=[];
+var P=D.map(function(d,k){var g=new THREE.BoxGeometry(d[3]-d[0],d[5]-d[2],d[4]-d[1]);
+var me=new THREE.Mesh(g,new THREE.MeshLambertMaterial({color:C[d[6]]}));me.userData.k=k;
+me.add(new THREE.LineSegments(new THREE.EdgesGeometry(g),em));sc.add(me);meshes.push(me);
+var b=[(d[0]+d[3])/2,(d[2]+d[5])/2,(d[1]+d[4])/2],m=d[7];
+return {me:me,b:b,m:m,t:d[6],v:[b[0]-mc[m][0],b[1]-mc[m][1],b[2]-mc[m][2]]};});
+var ctr=new THREE.OrbitControls(cam,rn.domElement);ctr.enableDamping=true;
+function front(){ctr.target.set(1545,1300,0);cam.position.set(4300,2700,9800);ctr.update();}
+function lay(){var e=document.getElementById('ex').value/100,sp=document.getElementById('pf').checked,pl=document.getElementById('pl').checked;
+P.forEach(function(p){var body=Math.floor(p.m/2),up=p.m%2;
+p.me.position.set(p.b[0]+e*((body-1.5)*520+0.55*p.v[0]),p.b[1]+e*(up*420+0.45*p.v[1]),p.b[2]+e*(0.5*p.v[2]-(p.t===7?260:0)+(p.t===8&&p.b[2]>400?220:0)));
+p.me.visible=(p.t!==7||sp)&&(p.t!==8||pl);});}
+['ex','pf','pl'].forEach(function(i){document.getElementById(i).addEventListener('input',lay);});document.getElementById('rs').addEventListener('click',front);
+var rc=new THREE.Raycaster(),tip=document.getElementById('tip'),dn=null;
+rn.domElement.addEventListener('pointerdown',function(ev){dn=[ev.clientX,ev.clientY];});
+rn.domElement.addEventListener('pointerup',function(ev){if(!dn||Math.abs(ev.clientX-dn[0])+Math.abs(ev.clientY-dn[1])>6)return;
+var r=rn.domElement.getBoundingClientRect(),v=new THREE.Vector2((ev.clientX-r.left)/r.width*2-1,-(ev.clientY-r.top)/r.height*2+1);
+rc.setFromCamera(v,cam);var h=rc.intersectObjects(meshes.filter(function(m){return m.visible;}));
+if(h.length){tip.textContent=N[h[0].object.userData.k];tip.style.display='block';}else tip.style.display='none';});
+front();lay();
+(function loop(){requestAnimationFrame(loop);ctr.update();rn.render(sc,cam);})();
+window.addEventListener('resize',function(){var w=el.clientWidth,h=el.clientHeight;cam.aspect=w/h;cam.updateProjectionMatrix();rn.setSize(w,h);});
+</script></body></html>
